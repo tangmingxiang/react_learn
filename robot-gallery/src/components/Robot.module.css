@@ -10,7 +10,3 @@
 	transform: translateZ(0);
 	transition: transform 0.25s ease-out;
 }
-
-.cardContainer:hover {
-	transform: scale(1.05);
-}

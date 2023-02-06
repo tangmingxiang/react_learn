@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './App.module.css';
 import logo from './assets/images/logo.svg'
 import Robot from './components/Robot'
+import RobotDiscount from './components/RobotDiscount'
 import ShoppingCart from './components/ShoppingCart'
 
 interface Props {
@@ -104,7 +105,9 @@ const App:React.FC = (props) => {
       {!loading ?
         <div className={style.robotList}>
           {
-            robotGallery.map(item => <Robot id={item.id} name={item.name} email={item.email} key={item.id} />)
+            robotGallery.map((item, index) => index % 2 === 0 ? 
+              <Robot id={item.id} name={item.name} email={item.email} key={item.id} />
+              : <RobotDiscount id={item.id} name={item.name} email={item.email} key={item.id} />)
           }
         </div> : <h2>loading 加载中</h2>
       }
