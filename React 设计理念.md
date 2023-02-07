@@ -289,16 +289,26 @@ static getDerivedStateFromProps(nextProps, preState) {
 
 ## 高阶组件 HOC
 
+[高阶组件 – React (docschina.org)](https://react.docschina.org/docs/higher-order-components.html) 
+
 高阶组件是 React 中非常重要的概念，应用场景包括：react-redux、react-router
 
 ```jsx
 const hoc = higherOrder(wrappedComponent)
 ```
 
-高阶组件就是一个返回组件的函数，通过组件嵌套的方法给子组件添加更多的功能，接受一个组件作为参数，并返回一个经过改造的新组件 [高阶组件 – React (docschina.org)](https://react.docschina.org/docs/higher-order-components.html) 
+高阶组件就是一个返回组件的函数，通过组件嵌套的方法给子组件添加更多的功能，接受一个组件作为参数，并返回一个经过改造的新组件
 
 ### 使用高阶组件的意义
 
 - 抽取重复代码，实现组件复用
 - 条件渲染，控制组件的渲染逻辑（渲染劫持）
 - 捕获 / 劫持被处理组件的生命周期
+
+## 自定义 Hooks
+
+[自定义 Hook – React (docschina.org)](https://react.docschina.org/docs/hooks-custom.html) 
+
+- 自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook
+- 自定义 Hook 是一种自然遵循 Hook 设计的约定，而并不是 React 的特性
+
