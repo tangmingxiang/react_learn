@@ -312,3 +312,28 @@ const hoc = higherOrder(wrappedComponent)
 - 自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook
 - 自定义 Hook 是一种自然遵循 Hook 设计的约定，而并不是 React 的特性
 
+## SPA (单页网站应用)
+
+> JS、CSS、HTML 打包为一个超级大的文件，一次性丢给浏览器
+>
+> JS 劫持浏览器路由，生成虚拟路由来动态渲染页面 DOM 元素
+>
+> 符合前后端分离的趋势，服务器不负责 UI 输出，而专注于数据支持，这样同一服务器可同时支持桌面APP、手机APP、网站APP ...
+
+## React 路由框架
+
+>综合性路由框架：react-router
+>
+>浏览器路由框架：react-keeper
+>
+>手机APP框架 (React-Native)：react-navigation
+
+## react-router
+
+> react-router-dom 用于浏览器，处理 Web App 的路由
+>
+> react-router-native 用于React-Native，处理手机 App 的路由
+>
+> react-router-redux 提供了路由中间件，处理 redux 的集成
+>
+> react-router-config 用来静态配置路由
