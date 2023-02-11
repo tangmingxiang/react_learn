@@ -337,3 +337,38 @@ const hoc = higherOrder(wrappedComponent)
 > react-router-redux 提供了路由中间件，处理 redux 的集成
 >
 > react-router-config 用来静态配置路由
+
+## 网站路由系统的要求
+
+- 路由导航与原生浏览器操作行为一致，如路径可以记录、缓存、回退等
+
+  ```jsx
+  <BrowserRouter />
+  ```
+
+- 路径的切换以页面为单位，不要页面堆叠
+
+  ```jsx
+  <Switch />
+  ```
+
+- 路由的路径解析原理与原生浏览器一致，可以自动识别 URL 路径
+
+  ```jsx
+  <Route />
+  ```
+
+## 自带路由参数
+
+> 通过  `<Route />` 传递的组件中的 props 自带三个参数：history、location、match
+>
+> 其中 match 的 params 属性可以接收 URL 路径中传递过来的参数信息
+
+```jsx
+// 如何在 URL 中添加参数
+// 第一种是使用 “?” 来引导参数
+"http://localhost/path?name1=value1&name2=value2"
+// 第二种是分段路由 Segments
+"http://localhost/products/131415999"
+```
+
