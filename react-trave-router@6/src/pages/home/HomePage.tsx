@@ -6,9 +6,11 @@ import { productList1, productList2, productList3 } from "./mockups"
 import sideImage from '../../assets/images/sider_2019_12-09.png'
 import sideImage2 from '../../assets/images/sider_2019_02-04.png'
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png'
+import { withRouter, RouteComponentProps } from '../../helper/withRouter';
 
-export class HomePage extends React.Component<{}> {
+class HomePageComponent extends React.Component<RouteComponentProps> {
   render() {
+    console.log(this.props.navigate)
     return (
       <>
         <Header />
@@ -56,6 +58,9 @@ export class HomePage extends React.Component<{}> {
     )
   }
 }
+
+// 通过 HOC 来实现 react-router-dom@6 对类组件的支持
+export const HomePage = withRouter(HomePageComponent)
 
 // export const HomePage = () => {
 //   return (

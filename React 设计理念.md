@@ -330,13 +330,19 @@ const hoc = higherOrder(wrappedComponent)
 
 ## react-router
 
-> react-router-dom 用于浏览器，处理 Web App 的路由
+- react-router-dom 用于浏览器，处理 Web App 的路由
+
+> 会自动安装 react-router 核心框架
 >
-> react-router-native 用于React-Native，处理手机 App 的路由
+> `<Link />` 组件可以渲染出 `<a />`标签
 >
-> react-router-redux 提供了路由中间件，处理 redux 的集成
+> `<BrowserRouter />` 组件利用 H5 API 实现路由切换
 >
-> react-router-config 用来静态配置路由
+> `<HashRouter />` 组件则利用原生 JS 中的 `window.location.hash`来实现路由切换
+
+- react-router-native 用于React-Native，处理手机 App 的路由
+- react-router-redux 提供了路由中间件，处理 redux 的集成
+- react-router-config 用来静态配置路由
 
 ## 网站路由系统的要求
 
@@ -372,3 +378,14 @@ const hoc = higherOrder(wrappedComponent)
 "http://localhost/products/131415999"
 ```
 
+## react-router-dom@5 和 react-router-dom@6 传递路由信息的区别
+
+- v5 可以通过 props 注入来获取路由状态
+
+  > 类组件：withRouter() 高阶组件 -> history、location、match
+  >
+  > 函数式组件：useLocation()、useHistory()、useParams()、useRouteMatch() ...
+
+- v6 全面倒向了函数式组件
+
+  > useLocation()、useNavigate() 替换了 useHistory()

@@ -3,18 +3,11 @@ import styles from "./Header.module.css"
 import logo from '../../assets/logo.svg';
 import { Layout, Typography, Input, Dropdown, Button, Menu } from 'antd'
 import { GatewayOutlined } from '@ant-design/icons'
-// import { useHistory, useRouteMatch, useLocation, useParams } from "react-router-dom"
-// import { useHistory } from "react-router-dom"
+// import { useParams, useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const Header:React.FC = () => {
-  // const history = useHistory()
-  // const match = useRouteMatch()
-  // const location = useLocation()
-  // const params = useParams()
-  // console.log(history)
-  // console.log(match)
-  // console.log(location)
-  // console.log(params)
+  const navigate = useNavigate()
   return (
     <div className={styles["app-header"]}>
       <div className={styles["top-header"]}>
@@ -33,18 +26,16 @@ export const Header:React.FC = () => {
             语言
           </Dropdown.Button>
           <Button.Group className={styles["button-group"]}>
-            {/* <Button onClick={ () => history.push('register') }>注册</Button>
-            <Button onClick={ () => history.push('login') }>登录</Button> */}
-            <Button>注册</Button>
-            <Button>登录</Button>
+            <Button onClick={() => navigate('register') }>注册</Button>
+            <Button onClick={() => navigate('login') }>登录</Button>
           </Button.Group>
         </div>
       </div>
       <Layout.Header className={styles["main-header"]}>
-        {/* <span onClick={() => history.push('/')} style={{ cursor: 'pointer' }}> */}
+        <span onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="logo" className={styles["App-logo"]}/>
           <Typography.Title level={3} className={styles["title"]}>React 旅游网</Typography.Title>
-        {/* </span> */}
+        </span>
         <Input.Search
           placeholder='请输入旅游目的地、主题或关键字'
           className={styles["search-input"]}

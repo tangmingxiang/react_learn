@@ -11,7 +11,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/detail/:touristRouteId' element={<DetailPage />} />
-          <Route element={<h2>页面不存在</h2>} />
+          <Route path='*' element={<h2>页面不存在</h2>} />
         </Routes>
       </BrowserRouter>
     </div>
