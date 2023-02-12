@@ -392,4 +392,5 @@ const hoc = higherOrder(wrappedComponent)
 
 ## Redux
 
-> redux 是一种设计模式，同时也是项目的架构方案。redux 不依赖任何库、任何框架，它不仅可以在 React 中使用，甚至在 Angular：ng-redux、Vue：ng-redux 中同样可以使用，但是在 Angular 中常用的是 Observable(RxJS)、Vue 中常用的是 Vuex
+> redux 是一种设计模式，同时也是项目的架构方案。redux 不依赖任何库、任何框架，它不仅可以在 React 中使用，甚至在 Angular：ng-redux、Vue：ng-redux 中同样可以使用，但是在 Angular 中常用的是 Observable(RxJS)、Vue 中常用的是 Vuex![redux架构](C:\Users\fli\Desktop\React\react_learn\md_images\redux架构.jpg)
+
