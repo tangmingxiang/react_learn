@@ -6,6 +6,7 @@ import { GatewayOutlined } from '@ant-design/icons'
 import { withRouter, RouteComponentProps } from "../../helper/withRouter"
 import store from "../../redux/store"
 import { LanguageState } from '../../redux/languageReducer'
+import { MenuInfo } from "rc-menu/lib/interface"
 
 interface state extends LanguageState {}
 
@@ -18,6 +19,12 @@ class HeaderComponent extends React.Component<RouteComponentProps, state> {
       languageList: state.languageList
     }
   }
+
+  handleLanguageChange(e: MenuInfo) {
+    // console.log(e)
+    store.dispatch({ type: 'language-change', payload: e.key })
+  }
+
   render(): React.ReactNode {
     const navigate = this.props.navigate
     return (
@@ -31,11 +38,12 @@ class HeaderComponent extends React.Component<RouteComponentProps, state> {
                 items: this.state.languageList.map(l => ({
                   key: l.code,
                   label: l.name
-                }))
+                })),
+                onClick: (e) => this.handleLanguageChange(e)
               }}
               icon={<GatewayOutlined />}
               >
-              { this.state.language === 'zh' ? '中文' : 'English' }
+              <span>{ this.state.language === 'zh' ? '中文' : 'English' }</span>
             </Dropdown.Button>
             <Button.Group className={styles["button-group"]}>
               <Button onClick={() => navigate('register') }>注册</Button>
