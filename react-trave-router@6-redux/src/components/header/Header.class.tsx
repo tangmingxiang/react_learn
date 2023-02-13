@@ -18,6 +18,14 @@ class HeaderComponent extends React.Component<RouteComponentProps, state> {
       language: state.language,
       languageList: state.languageList
     }
+    // 箭头函数定义则不再需要 bind
+    // store.subscribe(this.handleStoreChange.bind(this))
+    store.subscribe(this.handleStoreChange)
+  }
+
+  handleStoreChange = () => {
+    const state = store.getState()
+    this.setState({ language: state.language })
   }
 
   handleLanguageChange(e: MenuInfo) {
