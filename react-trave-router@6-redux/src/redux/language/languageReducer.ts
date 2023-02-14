@@ -1,4 +1,5 @@
 import { changeLanguage } from "i18next"
+import { CHANGE_LANGUAGE } from "./languageActions"
 export interface LanguageState {
   language: 'zh' | 'en',
   languageList: {name: string, code: string}[]
@@ -12,14 +13,21 @@ const defaultState: LanguageState = {
   ]
 }
 
-const languageReducer = (state=defaultState, action): LanguageState => {
+interface Action {
+  type: string,
+  payload: any
+}
+
+const languageReducer = (state=defaultState, action: Action): LanguageState => {
   const { type, payload } = action
-  let newState:LanguageState = defaultState
-  if (type === 'language-change') {
-    changeLanguage(payload)
-    newState = { ...state, language: payload }
+  switch (type) {
+    case CHANGE_LANGUAGE:
+      changeLanguage(payload)
+      const newState = { ...state, language: payload }
+      return newState
+    default:
+      return state
   }
-  return newState
 } 
 
 export default languageReducer

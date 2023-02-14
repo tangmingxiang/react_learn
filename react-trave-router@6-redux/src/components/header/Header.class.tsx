@@ -5,9 +5,10 @@ import { Layout, Typography, Input, Dropdown, Button, Menu } from 'antd'
 import { GatewayOutlined } from '@ant-design/icons'
 import { withRouter, RouteComponentProps } from "../../helper/withRouter"
 import store from "../../redux/store"
-import { LanguageState } from '../../redux/languageReducer'
 import { MenuInfo } from "rc-menu/lib/interface"
 import { withTranslation, WithTranslation } from "react-i18next"
+import { LanguageState } from '../../redux/language/languageReducer'
+import { changeLanguageCreater } from "../../redux/language/languageActions"
 
 interface state extends LanguageState {}
 
@@ -30,8 +31,8 @@ class HeaderComponent extends React.Component<RouteComponentProps & WithTranslat
   }
 
   handleLanguageChange(e: MenuInfo) {
-    // console.log(e)
-    store.dispatch({ type: 'language-change', payload: e.key })
+    const action = changeLanguageCreater(e.key)
+    store.dispatch(action)
   }
 
   render(): React.ReactNode {
