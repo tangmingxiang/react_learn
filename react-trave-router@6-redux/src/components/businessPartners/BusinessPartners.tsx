@@ -6,6 +6,7 @@ import Facebook from '../../assets/images/facebook-807588_640.png'
 import Instagram from '../../assets/images/follow-826033_640.png'
 import YouTube from '../../assets/images/icon-720944_640.png'
 import Microsoft from '../../assets/images/microsoft-80658_640.png'
+import { useTranslation } from "react-i18next"
 
 const sponsors = [
   { src: Facebook, title: 'Facebook' },
@@ -15,11 +16,12 @@ const sponsors = [
 ]
 
 export const BusinessPartners: React.FC = () => {
+  const { t } = useTranslation()
   return (
     <div>
       <Divider>
         <Typography.Title level={3}>
-          合作企业
+          {t('home_page.joint_venture')}
         </Typography.Title>
       </Divider>
       <div className={styles.content}>

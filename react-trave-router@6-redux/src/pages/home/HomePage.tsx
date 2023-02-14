@@ -6,11 +6,13 @@ import { productList1, productList2, productList3 } from "./mockups"
 import sideImage from '../../assets/images/sider_2019_12-09.png'
 import sideImage2 from '../../assets/images/sider_2019_02-04.png'
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png'
-import { withRouter, RouteComponentProps } from '../../helper/withRouter';
+import { withRouter, RouteComponentProps } from '../../helper/withRouter'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
-class HomePageComponent extends React.Component<RouteComponentProps> {
+class HomePageComponent extends React.Component<RouteComponentProps & WithTranslation> {
   render() {
-    console.log(this.props.navigate)
+    console.log(this.props)
+    const { t } = this.props
     return (
       <>
         <Header />
@@ -27,7 +29,7 @@ class HomePageComponent extends React.Component<RouteComponentProps> {
           <ProductCollection
             title={
               <Typography.Title level={3} type="warning">
-                爆款推荐
+                {t("home_page.hot_recommended")}
               </Typography.Title>
             }
             sideImage={sideImage}
@@ -36,7 +38,7 @@ class HomePageComponent extends React.Component<RouteComponentProps> {
           <ProductCollection
             title={
               <Typography.Title level={3} type="danger">
-                新品上市
+                {t("home_page.new_arrival")}
               </Typography.Title>
             }
             sideImage={sideImage2}
@@ -45,7 +47,7 @@ class HomePageComponent extends React.Component<RouteComponentProps> {
           <ProductCollection
             title={
               <Typography.Title level={3} type="success">
-                国内游推荐
+                {t("home_page.domestic_travel")}
               </Typography.Title>
             }
             sideImage={sideImage3}
@@ -60,7 +62,8 @@ class HomePageComponent extends React.Component<RouteComponentProps> {
 }
 
 // 通过 HOC 来实现 react-router-dom@6 对类组件的支持
-export const HomePage = withRouter(HomePageComponent)
+// withTranslation()(Component) 第一个小括号代表的是语言所使用的命名空间
+export const HomePage = withTranslation()(withRouter(HomePageComponent))
 
 // export const HomePage = () => {
 //   return (

@@ -2,6 +2,7 @@ import React from "react"
 import { Image, Typography } from "antd"
 // import { withRouter, RouteComponentProps, Link } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 interface PropsType {
   id: number | string,
@@ -15,6 +16,7 @@ export const ProductImage:React.FC<PropsType> = ({ id, size, title, imageSrc, pr
   // console.log(history)
   // console.log(location)
   // console.log(match)
+  const { t } = useTranslation()
   return (
     // <div onClick={() => history.push(`/detail/${id}`)} style={{ cursor: 'pointer' }}>
     <Link to={`/detail/${id}`}>
@@ -30,7 +32,7 @@ export const ProductImage:React.FC<PropsType> = ({ id, size, title, imageSrc, pr
           {title.slice(0,25)}
         </Typography.Text>
         <Typography.Text type="danger" strong>
-          ￥ {price} 起
+          ￥ {price} {t('home_page.start_from')}
         </Typography.Text>
       </div>
     </Link>
