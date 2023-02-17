@@ -4,38 +4,36 @@ import logo from '../../assets/logo.svg'
 import { Layout, Typography, Input, Dropdown, Button, Menu } from 'antd'
 import { GatewayOutlined } from '@ant-design/icons'
 import { withRouter, RouteComponentProps } from "../../helper/withRouter"
-import store from "../../redux/store"
+import { RootState } from "../../redux/store"
 import { MenuInfo } from "rc-menu/lib/interface"
 import { withTranslation, WithTranslation } from "react-i18next"
-import { LanguageState } from '../../redux/language/languageReducer'
 import { changeLanguageActionCreater } from "../../redux/language/languageActions"
+import { connect } from 'react-redux'
+import { Dispatch } from "redux"
 
-interface state extends LanguageState {}
-
-class HeaderComponent extends React.Component<RouteComponentProps & WithTranslation, state> {
-  constructor(props: RouteComponentProps & WithTranslation) {
-    super(props)
-    const state = store.getState()
-    this.state = {
-      language: state.language,
-      languageList: state.languageList
-    }
-    // 箭头函数定义则不再需要 bind
-    // store.subscribe(this.handleStoreChange.bind(this))
-    store.subscribe(this.handleStoreChange)
+function mapStateToProps(state: RootState) {
+  return {
+    language: state.language,
+    languageList: state.languageList
   }
-
-  handleStoreChange = () => {
-    const state = store.getState()
-    this.setState({ language: state.language })
-  }
-
-  handleLanguageChange(e: MenuInfo) {
+}
+function mapDispatchToProps(dispatch: Dispatch) {
+  function handleLanguageChange (e: MenuInfo) {
     const language = e.key === 'zh' ? 'zh' : 'en'
     const action = changeLanguageActionCreater(language)
-    store.dispatch(action)
+    dispatch(action)
   }
+  return {
+    handleLanguageChange
+  }
+}
 
+type PropsType = RouteComponentProps & // react-router 路由 props 类型
+                 WithTranslation & // i18n props类型
+                 RootState & // redux store 映射类型 
+                 ReturnType<typeof mapDispatchToProps>
+
+class HeaderComponent extends React.Component<PropsType> {
   render(): React.ReactNode {
     const { navigate, t } = this.props
     return (
@@ -46,15 +44,15 @@ class HeaderComponent extends React.Component<RouteComponentProps & WithTranslat
             <Dropdown.Button
               style={{ marginLeft: 15 }}
               menu={{
-                items: this.state.languageList.map(l => ({
+                items: this.props.languageList.map(l => ({
                   key: l.code,
                   label: l.name
                 })),
-                onClick: (e) => this.handleLanguageChange(e)
+                onClick: (e) => this.props.handleLanguageChange(e)
               }}
               icon={<GatewayOutlined />}
               >
-              <span>{ this.state.language === 'zh' ? '中文' : 'English' }</span>
+              <span>{ this.props.language === 'zh' ? '中文' : 'English' }</span>
             </Dropdown.Button>
             <Button.Group className={styles["button-group"]}>
               <Button onClick={() => navigate('register') }>{ t('header.register') }</Button>
@@ -100,4 +98,6 @@ class HeaderComponent extends React.Component<RouteComponentProps & WithTranslat
 }
 
 // 在 react-router-dom@6 中通过 HOC 将路由相关接口传递给类组件
-export const Header = withTranslation()(withRouter(HeaderComponent))
+export const Header = connect(mapStateToProps, mapDispatchToProps)(
+  withTranslation()(withRouter(HeaderComponent))
+)
