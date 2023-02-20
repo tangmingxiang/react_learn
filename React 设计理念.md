@@ -396,3 +396,44 @@ const hoc = higherOrder(wrappedComponent)
 >
 > ![redux工作流](C:\Users\fli\Desktop\React\react_learn\md_images\redux工作流.jpg)
 
+## RESTful
+
+> 对外开放接口的方式
+>
+> 语义明确、轻量级，且结构简单
+>
+> REST 全称 REpresentational State Transfer，表征性状态转移
+>
+> RESTful 即 REST 风格的
+>
+> RESTful 只是一个指导性的原则、一种代码风格或者说是一种代码的架构，而不是一种标准
+
+### 基本特点
+
+- 无状态
+
+  > 一次调用即可返回结果，不存在"打开链接、获取数据、关闭连接"这样的过程，也就是说类似于 WebSocket 这种持久性的、有状态的连接不属于 RESTful 的范畴
+
+- 面向"资源"
+
+  > 路径中只有名词，没有动词
+
+- 使用 HTTP 的动词
+
+  > | 动词   | 意义     | 例子                                  |
+  > | ------ | -------- | ------------------------------------- |
+  > | GET    | 查看     | HTTP GET api/v1/touristRoutes         |
+  > | POST   | 创建     | HTTP POST api/v1/touristRoutes        |
+  > | PUT    | 更新     | HTTP PUT api/v1/touristRoutes/{id}    |
+  > | PATCH  | 部分更新 | HTTP PATCH api/v1/touristRoutes/{id}  |
+  > | DELETE | 删除     | HTTP DELETE api/v1/touristRoutes/{id} |
+
+- HATOAS 超媒体即应用状态引擎
+
+  > Hypertext As The Engine Of Application State
+
+### 实际应用
+
+> 面向对象（资源），如增删改查，RESTful 好用
+>
+> 但面向过程，如登陆，则不好用，api/login ? POST api/user ? 都不太合适
