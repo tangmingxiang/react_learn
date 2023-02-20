@@ -5,25 +5,39 @@ import { Layout, Typography, Input, Dropdown, Button, Menu } from 'antd'
 import { GatewayOutlined } from '@ant-design/icons'
 // import { useParams, useLocation, useNavigate } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "../../redux/hooks"
+import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+// import { Dispatch } from "redux"
+// import { languageActionTypes } from "../../redux/language/languageActions"
+import { changeLanguageActionCreater } from "../../redux/language/languageActions";
 
 export const Header:React.FC = () => {
   const navigate = useNavigate()
+  const language = useSelector(state => state.language)
+  const languageList = useSelector(state => state.languageList)
+  // const dispatch = useDispatch<Dispatch<languageActionTypes>>()
+  const dispatch = useDispatch() // 推荐，以免代码显得臃肿
+  const { t } = useTranslation()
+
   return (
     <div className={styles["app-header"]}>
       <div className={styles["top-header"]}>
         <div className={styles.inner}>
-          <Typography.Text style={{ width: 98 }}>让旅途更轻松</Typography.Text>
+          <Typography.Text style={{ width: 98 }}>{ t('header.slogan') }</Typography.Text>
           <Dropdown.Button
             style={{ marginLeft: 15 }}
             menu={{
-              items: [
-                { key: 1, label: '中文' },
-                { key: 2, label: 'English' }
-              ]
+              items: languageList.map((item, index) => ({
+                key: item.code,
+                label: item.name
+              })),
+              onClick: (e) => dispatch(changeLanguageActionCreater(e.key === 'zh' ? 'zh' : 'en'))
             }}
             icon={<GatewayOutlined />}
+            
             >
-            语言
+            { language === 'zh' ? '中文' : 'English' }
           </Dropdown.Button>
           <Button.Group className={styles["button-group"]}>
             <Button onClick={() => navigate('register') }>注册</Button>
@@ -34,7 +48,7 @@ export const Header:React.FC = () => {
       <Layout.Header className={styles["main-header"]}>
         <span onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="logo" className={styles["App-logo"]}/>
-          <Typography.Title level={3} className={styles["title"]}>React 旅游网</Typography.Title>
+          <Typography.Title level={3} className={styles["title"]}>{ t('header.title') }</Typography.Title>
         </span>
         <Input.Search
           placeholder='请输入旅游目的地、主题或关键字'
@@ -45,22 +59,22 @@ export const Header:React.FC = () => {
         mode="horizontal"
         className={styles["main-menu"]}
         items={[
-          { key: "1", label: "旅游首页" },
-          { key: "2", label: "周末游" },
-          { key: "3", label: "跟团游" },
-          { key: "4", label: "自由行" },
-          { key: "5", label: "私家团" },
-          { key: "6", label: "邮轮" },
-          { key: "7", label: "酒店+景点" },
-          { key: "8", label: "当地玩乐" },
-          { key: "9", label: "主题游" },
-          { key: "10", label: "定制游" },
-          { key: "11", label: "游学" },
-          { key: "12", label: "签证" },
-          { key: "13", label: "企业游" },
-          { key: "14", label: "高端游" },
-          { key: "15", label: "爱玩户外" },
-          { key: "16", label: "保险" }
+          { key: "1", label: t("header.home_page") },
+          { key: "2", label: t("header.weekend") },
+          { key: "3", label: t("header.group") },
+          { key: "4", label: t("header.backpack") },
+          { key: "5", label: t("header.private") },
+          { key: "6", label: t("header.cruise") },
+          { key: "7", label: t("header.hotel") },
+          { key: "8", label: t("header.local") },
+          { key: "9", label: t("header.theme") },
+          { key: "10", label: t("header.custom") },
+          { key: "11", label: t("header.study") },
+          { key: "12", label: t("header.visa") },
+          { key: "13", label: t("header.enterprise") },
+          { key: "14", label: t("header.high_end") },
+          { key: "15", label: t("header.outdoor") },
+          { key: "16", label: t("header.insurance") }
         ]}
       />
     </div>
