@@ -437,3 +437,55 @@ const hoc = higherOrder(wrappedComponent)
 > 面向对象（资源），如增删改查，RESTful 好用
 >
 > 但面向过程，如登陆，则不好用，api/login ? POST api/user ? 都不太合适
+
+## MVC 与 Redux
+
+- 一种架构模式，同时也是一种思想
+
+- 模型、视图和控制器，分离业务操作、UI显示、逻辑控制
+
+- 视图 View
+
+  > 用户交互界面
+  >
+  > 仅展示数据，不处理数据
+  >
+  > 对应 React 项目中的 JSX 代码
+
+- 模型 Model
+
+  > MVC 架构的核心
+  >
+  > 表示业务模型和数据模型
+  >
+  > 业务逻辑，如算法实现、数据的管理、输出对象的封装等等
+  >
+  > 在 React 中相当于对 API 进行调用，使用组件 state 来进行管理
+
+- 控制器
+
+  > 接受用户的输入，并调用模型和视图去完成用户的请求处理 （个人理解：响应式的操作 ？）
+  >
+  > 不处理数据，只是接受用户请求，并决定调用那个数据模型来处理数据，然后根据模型决定使用哪一个页面哪一个视图来显示数据
+  >
+  > 在 React 项目中，控制器部分并不明显，实际上 React 的架构属于 MVC 的一个变种，称作 MVVM 或 MV*(whatever)，从命名可以看出，其实控制器这一部分并不重要
+
+### React 项目不提倡使用 MVC 架构，而是建议使用 Redux
+
+> MVC 架构可以解决代码与数据之间的耦合问题，但是缺点也非常明显，即 model 和 view 之间的数据双向绑定，而这种双向绑定最终可能导致数据流动陷入无限死循环
+
+![MVC架构的数据流动](C:\Users\fli\Desktop\React\react_learn\md_images\MVC架构的数据流动.jpg)
+
+### 主流框架的处理方式
+
+- React 使用 redux、Flux、Mobx
+- Vue 使用 Vuex
+- Angular使用 RxJS
+
+### Redux 与 MVC
+
+> 以下对应关系并不准确，仅作为理解两种架构模式的辅助手段
+
+- React => View
+- Redux => Controller
+- State + Reducer => Model
