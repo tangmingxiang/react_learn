@@ -14,8 +14,8 @@ import { changeLanguageActionCreater } from "../../redux/language/languageAction
 
 export const Header:React.FC = () => {
   const navigate = useNavigate()
-  const language = useSelector(state => state.language)
-  const languageList = useSelector(state => state.languageList)
+  const language = useSelector(state => state.language.language)
+  const languageList = useSelector(state => state.language.languageList)
   // const dispatch = useDispatch<Dispatch<languageActionTypes>>()
   const dispatch = useDispatch() // 推荐，以免代码显得臃肿
   const { t } = useTranslation()

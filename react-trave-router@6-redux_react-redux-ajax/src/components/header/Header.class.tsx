@@ -13,8 +13,8 @@ import { Dispatch } from "redux"
 
 function mapStateToProps(state: RootState) {
   return {
-    language: state.language,
-    languageList: state.languageList
+    language: state.language.language,
+    languageList: state.language.languageList
   }
 }
 function mapDispatchToProps(dispatch: Dispatch) {
@@ -31,7 +31,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
 type PropsType = RouteComponentProps & // react-router 路由 props 类型
                  WithTranslation & // i18n props类型
                  RootState & // redux store 映射类型 
-                 ReturnType<typeof mapDispatchToProps>
+                 ReturnType<typeof mapDispatchToProps> &
+                 ReturnType<typeof mapStateToProps>
 
 class HeaderComponent extends React.Component<PropsType> {
   render(): React.ReactNode {

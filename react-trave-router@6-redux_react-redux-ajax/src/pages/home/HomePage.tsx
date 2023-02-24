@@ -9,46 +9,42 @@ import sideImage3 from '../../assets/images/sider_2019_02-04-2.png'
 import { withRouter, RouteComponentProps } from '../../helper/withRouter'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import axios from 'axios'
+import { connect } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { fetchRecommendProductsErrorActionCreator, fetchRecommendProductsStartActionCreator, fetchRecommendProductsSuccessActionCreator } from '../../redux/recommendProducts/recommendProductsActions'
 
-interface State {
-  loading: boolean,
-  err: string | null
-  productList: any[]
+function mapStateToProps (state: RootState) {
+  return {
+    loading: state.recommendProducts.loading,
+    error: state.recommendProducts.error,
+    productList: state.recommendProducts.productList
+  }
 }
 
-class HomePageComponent extends React.Component<RouteComponentProps & WithTranslation, State> {
-
-  constructor(props: RouteComponentProps & WithTranslation) {
-    super(props)
-    this.state = {
-      loading: true,
-      err: null,
-      productList: []
-    }
+function mapDispatchToProps (dispach) {
+  return {
+    fetchStart: () => dispach(fetchRecommendProductsStartActionCreator()),
+    fetchSuccess: (data) => dispach(fetchRecommendProductsSuccessActionCreator(data)),
+    fetchError: (errMsg) => dispach(fetchRecommendProductsErrorActionCreator(errMsg))
   }
+}
 
+type PropsType = RouteComponentProps & WithTranslation & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
+
+class HomePageComponent extends React.Component<PropsType> {
   async componentDidMount(): Promise<void> {
+    this.props.fetchStart()
     try {
       const { data } = await axios.get('/productCollections')
-      this.setState({
-        loading: false,
-        err: null,
-        productList: data
-      })
+      this.props.fetchSuccess(data)
     } catch (error) {
-      if (error instanceof Error) {
-        this.setState({
-          loading: false,
-          err: error.message
-        })
-      }
+      this.props.fetchError(error instanceof Error ? error.message : "error")
     }
   }
 
   render() {
     console.log(this.props)
-    const { t } = this.props
-    const { loading, err, productList } = this.state
+    const { t, loading, error: err, productList } = this.props
     if (loading) {
       return (
         <Spin
@@ -116,7 +112,7 @@ class HomePageComponent extends React.Component<RouteComponentProps & WithTransl
 
 // 通过 HOC 来实现 react-router-dom@6 对类组件的支持
 // withTranslation()(Component) 第一个小括号代表的是语言所使用的命名空间
-export const HomePage = withTranslation()(withRouter(HomePageComponent))
+export const HomePage = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(withRouter(HomePageComponent)))
 
 // export const HomePage = () => {
 //   return (
