@@ -8,10 +8,9 @@ import sideImage2 from '../../assets/images/sider_2019_02-04.png'
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png'
 import { withRouter, RouteComponentProps } from '../../helper/withRouter'
 import { withTranslation, WithTranslation } from 'react-i18next'
-import axios from 'axios'
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { fetchRecommendProductsErrorActionCreator, fetchRecommendProductsStartActionCreator, fetchRecommendProductsSuccessActionCreator } from '../../redux/recommendProducts/recommendProductsActions'
+import { giveMeDataActionCreator } from '../../redux/recommendProducts/recommendProductsActions'
 
 function mapStateToProps (state: RootState) {
   return {
@@ -23,23 +22,15 @@ function mapStateToProps (state: RootState) {
 
 function mapDispatchToProps (dispach) {
   return {
-    fetchStart: () => dispach(fetchRecommendProductsStartActionCreator()),
-    fetchSuccess: (data) => dispach(fetchRecommendProductsSuccessActionCreator(data)),
-    fetchError: (errMsg) => dispach(fetchRecommendProductsErrorActionCreator(errMsg))
+    giveMeData: () => dispach(giveMeDataActionCreator())
   }
 }
 
 type PropsType = RouteComponentProps & WithTranslation & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
 
 class HomePageComponent extends React.Component<PropsType> {
-  async componentDidMount(): Promise<void> {
-    this.props.fetchStart()
-    try {
-      const { data } = await axios.get('/productCollections')
-      this.props.fetchSuccess(data)
-    } catch (error) {
-      this.props.fetchError(error instanceof Error ? error.message : "error")
-    }
+  componentDidMount() {
+    this.props.giveMeData()
   }
 
   render() {
