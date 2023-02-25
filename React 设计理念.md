@@ -489,3 +489,4 @@ const hoc = higherOrder(wrappedComponent)
 - React => View
 - Redux => Controller
 - State + Reducer => Model
+
