@@ -408,17 +408,21 @@ const hoc = higherOrder(wrappedComponent)
 >
 > RESTful 只是一个指导性的原则、一种代码风格或者说是一种代码的架构，而不是一种标准
 
+> [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html) (中文版：[Richardson成熟度模型(Richardson Maturity Model) - 通往真正REST的步骤_dm_vincent的博客-CSDN博客_哈德逊成熟度模型怎么做](https://blog.csdn.net/dm_vincent/article/details/51341037) )
+>
+> RESTful 之父罗伊大神曾说：只有使用了超媒体的才能算是真正的 REST。([REST APIs must be hypertext-driven » Untangled (gbiv.com)](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) )
+
 ### 基本特点
 
 - 无状态
 
   > 一次调用即可返回结果，不存在"打开链接、获取数据、关闭连接"这样的过程，也就是说类似于 WebSocket 这种持久性的、有状态的连接不属于 RESTful 的范畴
 
-- 面向"资源"
+- 面向"资源"(level 1)
 
   > 路径中只有名词，没有动词
 
-- 使用 HTTP 的动词
+- 使用 HTTP 的动词(level 2)
 
   > | 动词   | 意义     | 例子                                  |
   > | ------ | -------- | ------------------------------------- |
@@ -428,9 +432,19 @@ const hoc = higherOrder(wrappedComponent)
   > | PATCH  | 部分更新 | HTTP PATCH api/v1/touristRoutes/{id}  |
   > | DELETE | 删除     | HTTP DELETE api/v1/touristRoutes/{id} |
 
-- HATOAS 超媒体即应用状态引擎
+- HATOAS 超媒体即应用状态引擎(level 3)
 
   > Hypertext As The Engine Of Application State
+  >
+  > 超媒体（Hypermedia）= 多媒体（multimedia）+ 超文本（hypertext）
+  >
+  > HATOAS 即 api 的自我发现机制，其中心思想是 在 HTTP 请求的返回信息中包含 api 的自我发现机制，也就是包含很多相关 api 连接 URL，譬如，在查看订单请求的响应中不仅包含订单本身的内容，还包含一条如何取消该订单的 URL 链接，同样可能还包含如何更新该订单的链接
+
+- RESTful API 范例
+
+  > https://developer.github.com/v3/
+  >
+  > https://developers.douban.com/wiki/?title=api_v2
 
 ### 实际应用
 
@@ -490,3 +504,82 @@ const hoc = higherOrder(wrappedComponent)
 - Redux => Controller
 - State + Reducer => Model
 
+## redux 中间件
+
+> redux-thunk 中间件实现异步 action
+>
+> ![redux的数据流动](C:\Users\fli\Desktop\React\react_learn\md_images\redux的数据流动.jpg)
+>
+> ![redux的数据流动_中间件](C:\Users\fli\Desktop\React\react_learn\md_images\redux的数据流动_中间件.jpg)
+
+
+
+## Redux Toolkit (RTK)
+
+> RTK 已成为非常主流的 redux 架构模式
+>
+> npx create-react-app my-app --template redux 创建项目时，则会默认选择 RTK 架构
+
+## HTTP 状态码
+
+> 用户可以知道服务器端是正常处理了请求，还是出现了什么错误
+>
+> HTTP 状态码由一个三位数字的状态码和一个字符串格式状态消息组成
+
+![HTTP状态码-1](C:\Users\fli\Desktop\React\react_learn\md_images\HTTP状态码-1.jpg)
+
+![HTTP状态码-2](C:\Users\fli\Desktop\React\react_learn\md_images\HTTP状态码-2.jpg)
+
+## JWT
+
+> header.payload.authentication
+>
+> header：加密算法
+>
+> payload：自定义数据
+
+> JSON Web Token
+>
+> JWT 的作用是用户授权（Authorization），而不是用户的身份认证（Authentication）
+>
+> 用户认证指的是使用用户名、密码来验证当前用户的身份
+>
+>  - 最简单的就是用户登录
+>  - 错误状态码：401 Unauthorized （未授权）
+>
+> 用户授权指当前用户是否有足够的权限访问特定的资源
+>
+> - 错误状态码：403 forbidden （禁止访问）
+
+### JWT 与 Session
+
+> 传统的 Session 登录
+>
+> - 用户登录后，服务器会保存登录的 Session 信息
+> - Session ID 会通过 cookie 传递给前端
+> - http 请求会附带 cookie
+> - 这种登录因为在服务器中保存了用户的 Session，所以称这种登录模式为**有状态登录**
+
+> JWT 彻底改变了用户授权和认证的过程
+>
+> - JWT 替换 cookie
+> - JWT 信息只需保存在客户端
+> - 无状态登录
+> - 无状态登录的优势在于分布式部署
+
+### JWT 的缺点
+
+> 无状态，token 一经发布则无法取消(无解......)
+>
+> header 和 payload 仅仅使用 base64 编码，所以 header 和 payload 的安全性低(使用https可以解决该问题)
+
+## redux-persist
+
+> 实现登录持久化
+
+> ![cookie、session、webStorage](C:\Users\fli\Desktop\React\react_learn\md_images\cookie、session、webStorage.jpg)
+
+> web Storage 好处
+>
+> - 有效降低网络流量
+> - 快速显示数据
